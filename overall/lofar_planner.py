@@ -11,8 +11,6 @@ from pivottablejs import pivot_ui
 
 # - Astro-packages
 import astropy.units as u
-import astropy.coordinates as coord
-import astropy.table
 from astropy.coordinates import SkyCoord, EarthLocation #- for tranformations, takes ref. from simbad.
 from astropy.time import Time
 from astropy.table import QTable, Table
