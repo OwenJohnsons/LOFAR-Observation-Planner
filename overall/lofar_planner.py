@@ -4,25 +4,19 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import qgrid
 import re
 from IPython.display import HTML
 from pytz import timezone # timezone information 
 from pivottablejs import pivot_ui
-import datetime
-from datetime import time
-from datetime import timedelta
 
 # - Astro-packages
-import astropy
 import astropy.units as u
 import astropy.coordinates as coord
 import astropy.table
-from astropy.coordinates import SkyCoord, EarthLocation, AltAz, get_sun, get_moon #- for tranformations, takes ref. from simbad.
+from astropy.coordinates import SkyCoord, EarthLocation #- for tranformations, takes ref. from simbad.
 from astropy.time import Time
 from astropy.table import QTable, Table
-from astroplan import (observability_table,FixedTarget, Observer, AltitudeConstraint, AtNightConstraint, MoonSeparationConstraint, SunSeparationConstraint)
-from astroplan.utils import time_grid_from_range
+from astroplan import (observability_table,FixedTarget, Observer, AltitudeConstraint, SunSeparationConstraint)
 from astroquery.simbad import Simbad 
 
 
@@ -86,13 +80,6 @@ def setup(start_time, end_time, alt_const_min, alt_const_max, sun_sep, granulati
     df = table.to_pandas() # - conversion to dataframe 
     df.sort_values(by = 'fraction of time observable', ascending = False, inplace = True) # - sorting based on name 
     df.to_csv('data/target-lists/stations/%s/%s-Targets-%s.csv' % (str(observatory.name), str(observatory.name), time_s[2:8]), header = True, index  = False) # - saving to .csv 
-
-    # --- distance calculation
-    
-    # if distance_calculator == True: 
-    #     Simbad.add_votable_fields('typed_id', 'distance')
-    #     result = Simbad.query_objects(df['target name'])
-    #     df['Distance (pc)'] = result['Distance_distance']
 
     return df, targets, time_s, common_targets, table
 
